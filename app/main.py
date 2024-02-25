@@ -1,17 +1,18 @@
 from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
 
-from . import crud, models, schemas
-from .database import SessionLocal, engine
+import crud, models, schemas
+#import database.SessionLocal, database.engine
+import database
 
-models.Base.metadata.create_all(bind=engine)
+models.Base.metadata.create_all(bind=database.engine)
 
 app = FastAPI()
 
 
 # Dependency
 def get_db():
-    db = SessionLocal()
+    db = database.SessionLocal()
     try:
         yield db
     finally:
